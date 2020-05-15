@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "login-angular-e2d71": {
+      "hosting": {
+        "login": [
+          "login-angular-e2d71"
+        ]
+      }
+    }
+  }
+}

@@ -1,8 +1,9 @@
+import { first }            from 'rxjs/operators';
 import { Injectable }       from '@angular/core';
 import { auth }             from 'firebase/app/';
 import { User }             from 'firebase';
 import { AngularFireAuth }  from '@angular/fire/auth';
-import { relative } from 'path';
+// import { relative } from 'path';
 
 
 
@@ -13,14 +14,34 @@ export class AuthService {
 
     constructor (public afAuth: AngularFireAuth, ){}
 
-    async login(email:string, password:string){
-        const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
-        return result;
+    async login(email: string, password: string){
+        try {
+            const result = await this.afAuth.signInWithEmailAndPassword(email, password);  
+            return result;
+        } catch (error) {
+            console.log(error);    
+        }
     }
-    register(){}
+
+    async register(email: string, password: string){
+        try {
+            const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+            return result;
+        } catch (error) {
+            console.log(error);    
+        }
+    }
+
     async logout(){
-        await this.afAuth.signOut();
+        try {
+            await this.afAuth.signOut();
+        } catch (error) {
+            console.log(error);    
+        }
     }
-    getCurrentUser(){}
+    
+    getCurrentUser(){
+        return this.afAuth.authState.pipe(first()).toPromise();
+    }
 
 }

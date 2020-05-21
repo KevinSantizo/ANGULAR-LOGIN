@@ -10,20 +10,23 @@
           <a class="nav-link" routerLink="/" routerLinkActive="router-link-active" >Home</a>
         </li>
       </ul>
-      {{ user$ | async | json}}
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item active" *ngIf="!isLoggedIn">
-          <a class="nav-link" routerLink="/login">Login</a>
-        </li>
-        <li class="nav-item active" *ngIf="isLoggedIn">
+      <ul class="navbar-nav mx-auto" *ngIf="user$ | async as user; else login">
+        <li class="nav-item" *ngIf="user">
             <a class="nav-link" (click)="onLogOut()">Logout</a>
-          </li>
-          <li class="nav-item active" *ngIf="!isLoggedIn">
-            <a class="nav-link" routerLink="/register">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link">{{ user?.email }}</a>
           </li>
       </ul>
+      <ng-template #login>
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register">Register</a>
+          </li>
+        </ul>
+      </ng-template>
     </div>
   </nav>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SendEmailComponent } from './auth/send-email/send-email.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,12 @@ const routes: Routes = [
   }, 
   { 
     path: 'register', loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule) 
+  },
+  {
+    path: 'verification-email', 
+    component: SendEmailComponent,
   }
+
 ];
 
 @NgModule({

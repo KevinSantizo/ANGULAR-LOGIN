@@ -20,15 +20,13 @@ export class LoginComponent implements OnInit {
   });
   constructor(private authSvc: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   async onLogin(){
     const {email, password} = this.loginForm.value;
     try {
       const user = await this.authSvc.login(email, password);
       if (user && user.user.emailVerified) {
-        //Redirect to home page
         this.router.navigate(['/home']);
       } else if(user){
         this.router.navigate(['/verification-email']); 
@@ -37,8 +35,6 @@ export class LoginComponent implements OnInit {
       }
     } catch (error) {
       console.log(error);
-      
     }
   }
-
 }
